@@ -24,7 +24,7 @@ const clickdData = data =>{
           </div>
           <p>${datas.author.published_date}</p>
           <strong>views: ${datas.total_view}</strong>
-          <button type="button" class="btn btn-outline-success">Details</button>
+          <button onClick="loadNewsDetails()" type="button" class="btn btn-outline-success">Details</button>
         </div>
         </div>
         </br>
@@ -33,6 +33,25 @@ const clickdData = data =>{
      `;
         newsData.appendChild(newsDiv);
     })
+}
+
+
+const loadNewsDetails = () =>{
+    const url = `https://openapi.programming-hero.com/api/news/categories`;
+    fetch(url)
+    .then(res => res.json())
+    .then(data => displayDetails(data));
+}
+
+const displayDetails = modal =>{
+    console.log(modal);
+    const modalTitle = document.getElementById('phoneDetailModalLabel');
+    const phoneDetails = document.getElementById('news-details');
+    phoneDetails.innerHTML = `
+      <p>Storage: ${modal.category_id}</p>
+      <p>Others: ${modal.category_name}</p>
+    `;
+    modalTitle.appendChild(phoneDetails)
 }
 
 loadData();
